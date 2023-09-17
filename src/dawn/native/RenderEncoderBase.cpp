@@ -295,6 +295,7 @@ void RenderEncoderBase::APIDrawIndexedIndirect(BufferBase* indirectBuffer,
 }
 
 void RenderEncoderBase::APISetPipeline(RenderPipelineBase* pipeline) {
+    pipeline->DoTestFoo();
     mEncodingContext->TryEncode(
         this,
         [&](CommandAllocator* allocator) -> MaybeError {

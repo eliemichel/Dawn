@@ -121,6 +121,10 @@ static constexpr FeatureEnumAndInfoList kFeatureNameAndInfoList = {{
      {"msaa-render-to-single-sampled",
       "Support multisampled rendering on single-sampled attachments efficiently.",
       "https://bugs.chromium.org/p/dawn/issues/detail?id=1710", FeatureInfo::FeatureState::Stable}},
+    {Feature::Foo,
+     {"foo",
+      "Support our custom FOO feature on render pipelines.",
+      "https://eliemichel.github.io/LearnWebGPU/appendices/custom-extensions.html", FeatureInfo::FeatureState::Stable}},
 }};
 
 Feature FromAPIFeature(wgpu::FeatureName feature) {
@@ -173,6 +177,8 @@ Feature FromAPIFeature(wgpu::FeatureName feature) {
             return Feature::Float32Filterable;
         case wgpu::FeatureName::MSAARenderToSingleSampled:
             return Feature::MSAARenderToSingleSampled;
+        case wgpu::FeatureName::Foo:
+            return Feature::Foo;
     }
     return Feature::InvalidEnum;
 }
@@ -221,6 +227,8 @@ wgpu::FeatureName ToAPIFeature(Feature feature) {
             return wgpu::FeatureName::Float32Filterable;
         case Feature::MSAARenderToSingleSampled:
             return wgpu::FeatureName::MSAARenderToSingleSampled;
+        case Feature::Foo:
+            return wgpu::FeatureName::Foo;
 
         case Feature::EnumCount:
             break;

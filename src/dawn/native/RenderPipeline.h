@@ -108,6 +108,9 @@ class RenderPipelineBase : public PipelineBase {
     // Functions necessary for the unordered_set<RenderPipelineBase*>-based cache.
     size_t ComputeContentHash() override;
 
+    // Display a debug log line with the value of foo, is enabled
+    void DoTestFoo() const;
+
     struct EqualityFunc {
         bool operator()(const RenderPipelineBase* a, const RenderPipelineBase* b) const;
     };
@@ -140,6 +143,10 @@ class RenderPipelineBase : public PipelineBase {
     bool mWritesDepth = false;
     bool mWritesStencil = false;
     bool mUsesFragDepth = false;
+
+    // Foo extension
+    bool mUseFoo = false;
+    uint32_t mFoo;
 };
 
 }  // namespace dawn::native

@@ -282,6 +282,7 @@ void PhysicalDevice::InitializeSupportedFeaturesImpl() {
 
     EnableFeature(Feature::SurfaceCapabilities);
     EnableFeature(Feature::TransientAttachments);
+    EnableFeature(Feature::Foo);
 }
 
 MaybeError PhysicalDevice::InitializeSupportedLimitsImpl(CombinedLimits* limits) {

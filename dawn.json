@@ -1464,7 +1464,8 @@
             {"value": 1007, "name": "implicit device synchronization", "tags": ["dawn", "native"]},
             {"value": 1008, "name": "surface capabilities", "tags": ["dawn"]},
             {"value": 1009, "name": "transient attachments", "tags": ["dawn"]},
-            {"value": 1010, "name": "MSAA render to single sampled", "tags": ["dawn"]}
+            {"value": 1010, "name": "MSAA render to single sampled", "tags": ["dawn"]},
+            {"value": 4097, "name": "Foo", "tags": ["native"]}
         ]
     },
     "filter mode": {
@@ -2645,7 +2646,8 @@
             {"value": 1010, "name": "request adapter options LUID", "tags": ["dawn", "native"]},
             {"value": 1011, "name": "request adapter options get GL proc", "tags": ["dawn", "native"]},
             {"value": 1012, "name": "dawn multisample state render to single sampled", "tags": ["dawn"]},
-            {"value": 1013, "name": "dawn render pass color attachment render to single sampled", "tags": ["dawn"]}
+            {"value": 1013, "name": "dawn render pass color attachment render to single sampled", "tags": ["dawn"]},
+            {"value": 4097, "name": "foo render pipeline descriptor", "tags": ["native"]}
         ]
     },
     "texture": {
@@ -3050,6 +3052,15 @@
         "tags": ["dawn"],
         "members": [
             {"name": "out of memory", "type": "bool", "default": "false"}
+        ]
+    },
+    "foo render pipeline descriptor": {
+        "category": "structure",
+        "chained": "in",
+        "chain roots": ["render pipeline descriptor"],
+        "tags": ["native"],
+        "members": [
+            {"name": "foo", "type": "uint32_t"}
         ]
     }
 }

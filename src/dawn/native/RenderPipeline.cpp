@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 #include "dawn/common/BitSetIterator.h"
 #include "dawn/native/ChainUtils.h"
@@ -594,7 +595,7 @@ bool IsStripPrimitiveTopology(wgpu::PrimitiveTopology primitiveTopology) {
 
 MaybeError ValidateRenderPipelineDescriptor(DeviceBase* device,
                                             const RenderPipelineDescriptor* descriptor) {
-    DAWN_INVALID_IF(descriptor->nextInChain != nullptr, "nextInChain must be nullptr.");
+    DAWN_TRY(ValidateSTypes(descriptor->nextInChain, {{wgpu::SType::FooRenderPipelineDescriptor}}));
 
     if (descriptor->layout != nullptr) {
         DAWN_TRY(device->ValidateObject(descriptor->layout));
@@ -797,6 +798,14 @@ RenderPipelineBase::RenderPipelineBase(DeviceBase* device,
 
     // Initialize the cache key to include the cache type and device information.
     StreamIn(&mCacheKey, CacheKey::Type::RenderPipeline, device->GetCacheKey());
+
+    // Handle foo info, if provided
+    const FooRenderPipelineDescriptor* fooDesc = nullptr;
+    FindInChain(descriptor->nextInChain, &fooDesc);
+    if (fooDesc != nullptr) {
+        mUseFoo = true;
+        mFoo = fooDesc->foo;
+    }
 }
 
 RenderPipelineBase::RenderPipelineBase(DeviceBase* device,
@@ -1049,6 +1058,12 @@ size_t RenderPipelineBase::ComputeContentHash() {
     recorder.Record(mMultisample.mask, mMultisample.alphaToCoverageEnabled);
 
     return recorder.GetContentHash();
+}
+
+void RenderPipelineBase::DoTestFoo() const {
+    if (mUseFoo) {
+        std::cout << "DEBUG of FOO feature: foo=" << mFoo << std::endl;
+    }
 }
 
 bool RenderPipelineBase::EqualityFunc::operator()(const RenderPipelineBase* a,
